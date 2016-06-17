@@ -64,27 +64,46 @@ int main() {
    // printBig(NULL);
 
 //    printf("%d %d\n", sizeof(int),sizeof(void *));
-    printf("%lu %lu\n", sizeof(int),sizeof(void *));
 
-    pthread_t tids[8];
+//    printf("%lu %lu\n", sizeof(int),sizeof(void *));
+//
+//    pthread_t tids[8];
+//
+//    bool primalities[8];
+//
+//    for(int i = 0; i<8;++i){
+//        pthread_create(&tids[i],NULL,IsPrime, reinterpret_cast<void *>(i + 2));
+//    }
+//
+//    for(int i = 0; i < 8;++i)
+//    {
+//        pthread_join(tids[i], reinterpret_cast<void **>(&primalities[i]));
+//    }
+//
+//    for (int j = 0; j < 8; ++j) {
+//        cout<<primalities[j]<<" ";
+//    }
+//
+//    cout<<endl;
 
-    bool primalities[8];
+    pthread_t  tid;
 
-    for(int i = 0; i<8;++i){
-        pthread_create(&tids[i],NULL,IsPrime, reinterpret_cast<void *>(i + 2));
+    pthread_attr_t att;
+    pthread_attr_init(&att);
+    pthread_attr_setdetachstate(&att,PTHREAD_CREATE_DETACHED);
+
+    pthread_create(&tid,&att,printsmall,NULL);
+
+    pthread_attr_destroy(&att);
+
+    //====没有下面的函数,主线程结束,子线程也跟着结束
+
+
+
+
+    while (1){
+
+        sleep(1);
     }
-
-    for(int i = 0; i < 8;++i)
-    {
-        pthread_join(tids[i], reinterpret_cast<void **>(&primalities[i]));
-    }
-
-    for (int j = 0; j < 8; ++j) {
-        cout<<primalities[j]<<" ";
-    }
-
-    cout<<endl;
-
-
     return 0;
 }
