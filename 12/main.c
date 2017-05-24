@@ -19,6 +19,8 @@ void usage()
 			);
 }
 
+extern char ** environ;
+
 int main(int argc, char **argv) {
 	for (int i = 0; i< argc; ++i)
 	{
@@ -56,7 +58,7 @@ int main(int argc, char **argv) {
 			break;
 		case '?':
 			usage();
-			exit(1);
+//			exit(1);
 //			abort();
 //			printf("index_ptr %d\n",index);
 //			printf("invalid parameters\n");
@@ -78,6 +80,19 @@ int main(int argc, char **argv) {
 	{
 		printf("---> %d %s %x\n",i,long_opts[i].name,long_opts[i].flag);
 	}
+
+
+	for(char ** val = environ; *val != NULL; ++val)
+	{
+		printf("%s\n",*val);
+	}
+
+	char * os = getenv("OS1");
+	if(!os){
+		os = "linux 3.12.2.2.12";
+	}
+	printf("\n %x %s\n",os,os);
+
 
 }
 
